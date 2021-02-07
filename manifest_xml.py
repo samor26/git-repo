@@ -403,9 +403,14 @@ https://gerrit.googlesource.com/git-repo/+/HEAD/docs/manifest-format.md
         revision = self.remotes[p.remote.orig_name].revision or d.revisionExpr
         if not revision or revision != p.revisionExpr:
           e.setAttribute('revision', p.revisionExpr)
+<<<<<<< HEAD   (099b2f sync: superproject performance changes.)
         else:
           if p.revisionId:
             e.setAttribute('revision', p.revisionId)
+=======
+        elif p.revisionId:
+          e.setAttribute('revision', p.revisionId)
+>>>>>>> BRANCH (b5c5a5 manifest: set revisionId as revision attribute it it is not )
         if (p.upstream and (p.upstream != p.revisionExpr or
                             p.upstream != d.upstreamExpr)):
           e.setAttribute('upstream', p.upstream)
