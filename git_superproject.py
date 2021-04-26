@@ -28,6 +28,7 @@ import sys
 
 from git_command import GitCommand
 from git_refs import R_HEADS
+from wrapper import Wrapper
 
 _SUPERPROJECT_GIT_NAME = 'superproject.git'
 _SUPERPROJECT_MANIFEST_NAME = 'superproject_override.xml'
@@ -277,7 +278,11 @@ class Superproject(object):
       # TODO(rtenneti): Come up with a solution to support non-google URL for
       # filing bug reports.
       print('error: please file a bug using %s to report missing commit_ids for: %s' %
+<<<<<<< HEAD   (f7133d superproject: Change bug reporting url to go/repo-bug for mi)
             (_BUG_REPORT_GOOGLE_URL, projects_missing_commit_ids), file=sys.stderr)
+=======
+            (Wrapper().BUG_URL, projects_missing_commit_ids), file=sys.stderr)
+>>>>>>> BRANCH (a1cd77 help/version: sprinkle bug report URL around)
       return None
 
     manifest_path = self._WriteManfiestFile()
