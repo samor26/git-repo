@@ -1030,6 +1030,33 @@ later is required to fix a server side protocol bug.
       if opt.network_only:
         return
 
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
+=======
+      # Iteratively fetch missing and/or nested unregistered submodules
+      previously_missing_set = set()
+      while True:
+        self._ReloadManifest(manifest_name)
+        all_projects = self.GetProjects(args,
+                                        missing_ok=True,
+                                        submodules_ok=opt.fetch_submodules)
+        missing = []
+        for project in all_projects:
+          if project.gitdir not in fetched:
+            missing.append(project)
+        if not missing:
+          break
+        # Stop us from non-stopped fetching actually-missing repos: If set of
+        # missing repos has not been changed from last fetch, we break.
+        missing_set = set(p.name for p in missing)
+        if previously_missing_set == missing_set:
+          break
+        previously_missing_set = missing_set
+        success, new_fetched = self._Fetch(missing, opt, err_event)
+        if not success:
+          err_event.set()
+        fetched.update(new_fetched)
+
+>>>>>>> BRANCH (148e1c sync: fix recursive fetching)
       # If we saw an error, exit with code 1 so that other scripts can check.
       if err_event.is_set():
         err_network_sync = True

@@ -2235,8 +2235,13 @@ class Project(object):
         break
 
       # Figure out how long to sleep before the next attempt, if there is one.
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
       if not verbose and gitcmd.stdout:
         print('\n%s:\n%s' % (self.name, gitcmd.stdout), end='', file=output_redir)
+=======
+      if not verbose:
+        output_redir.write('\n%s:\n%s' % (self.name, gitcmd.stdout))
+>>>>>>> BRANCH (148e1c sync: fix recursive fetching)
       if try_n < retry_fetches - 1:
         print('%s: sleeping %s seconds before retrying' % (self.name, retry_cur_sleep),
               file=output_redir)
