@@ -47,7 +47,18 @@ use for this GITC client.
 """
 
   def _Options(self, p):
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
     super()._Options(p, gitc_init=True)
+=======
+    super(GitcInit, self)._Options(p, gitc_init=True)
+    g = p.add_option_group('GITC options')
+    g.add_option('-f', '--manifest-file',
+                 dest='manifest_file',
+                 help='Optional manifest file to use for this GITC client.')
+    g.add_option('-c', '--gitc-client',
+                 dest='gitc_client',
+                 help='The name of the gitc_client instance to create or modify.')
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 
   def Execute(self, opt, args):
     gitc_client = gitc_utils.parse_clientdir(os.getcwd())

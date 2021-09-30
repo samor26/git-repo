@@ -1,7 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 #
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
 # Copyright (C) 2008 The Android Open Source Project
+=======
+import os
+REPO_URL = os.environ.get('REPO_URL', None)
+if not REPO_URL:
+  REPO_URL = 'https://gerrit.googlesource.com/git-repo'
+REPO_REV = os.environ.get('REPO_REV')
+if not REPO_REV:
+  REPO_REV = 'repo-1'
+
+# Copyright (C) 2008 Google Inc.
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -149,7 +161,11 @@ if not REPO_REV:
 BUG_URL = 'https://bugs.chromium.org/p/gerrit/issues/entry?template=Repo+tool+issue'
 
 # increment this whenever we make important changes to this script
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
 VERSION = (2, 17)
+=======
+VERSION = (1, 27)
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 
 # increment this if the MAINTAINER_KEYS block is modified
 KEYRING_VERSION = (2, 3)
@@ -281,9 +297,23 @@ def GetParser(gitc_init=False):
   return parser
 
 
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
 def InitParser(parser, gitc_init=False):
   """Setup the CLI parser."""
   # NB: Keep in sync with command.py:_CommonOptions().
+=======
+# Tool
+group = init_optparse.add_option_group('repo Version options')
+group.add_option('--repo-url',
+                 dest='repo_url',
+                 help='repo repository location ($REPO_URL)', metavar='URL')
+group.add_option('--repo-branch',
+                 dest='repo_branch',
+                 help='repo branch or revision ($REPO_REV)', metavar='REVISION')
+group.add_option('--no-repo-verify',
+                 dest='no_repo_verify', action='store_true',
+                 help='do not verify repo source code')
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 
   # Logging.
   group = parser.add_option_group('Logging options')

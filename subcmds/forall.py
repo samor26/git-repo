@@ -337,6 +337,7 @@ def DoWork(project, mirror, opt, cmd, shell, cnt, config):
 
   output = result.stdout
   if opt.project_header:
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
     if output:
       buf = io.StringIO()
       out = ForallColoring(config)
@@ -350,3 +351,51 @@ def DoWork(project, mirror, opt, cmd, shell, cnt, config):
       buf.write(output)
       output = buf.getvalue()
   return (result.returncode, output)
+=======
+    out = ForallColoring(config)
+    out.redirect(sys.stdout)
+    empty = True
+    errbuf = ''
+
+    p.stdin.close()
+    s_in = platform_utils.FileDescriptorStreams.create()
+    s_in.add(p.stdout, sys.stdout, 'stdout')
+    s_in.add(p.stderr, sys.stderr, 'stderr')
+
+    while not s_in.is_done:
+      in_ready = s_in.select()
+      for s in in_ready:
+        buf = s.read().decode()
+        if not buf:
+          s.close()
+          s_in.remove(s)
+          continue
+
+        if not opt.verbose:
+          if s.std_name == 'stderr':
+            errbuf += buf
+            continue
+
+        if empty and out:
+          if not cnt == 0:
+            out.nl()
+
+          if mirror:
+            project_header_path = project['name']
+          else:
+            project_header_path = project['relpath']
+          out.project('project %s/', project_header_path)
+          out.nl()
+          out.flush()
+          if errbuf:
+            sys.stderr.write(errbuf)
+            sys.stderr.flush()
+            errbuf = ''
+          empty = False
+
+        s.dest.write(buf)
+        s.dest.flush()
+
+  r = p.wait()
+  return r
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")

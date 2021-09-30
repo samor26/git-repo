@@ -86,11 +86,103 @@ manifest, a subsequent `repo sync` (or `repo sync -d`) is necessary
 to update the working directory files.
 """
 
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
   def _CommonOptions(self, p):
     """Disable due to re-use of Wrapper()."""
+=======
+  def _Options(self, p, gitc_init=False):
+    # Logging
+    g = p.add_option_group('Logging options')
+    g.add_option('-q', '--quiet',
+                 dest="quiet", action="store_true", default=False,
+                 help="be quiet")
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 
+<<<<<<< HEAD   (4f8820 trace2_event: Add remove_prefix to fix failing tests on Linu)
   def _Options(self, p, gitc_init=False):
     Wrapper().InitParser(p, gitc_init=gitc_init)
+=======
+    # Manifest
+    g = p.add_option_group('Manifest options')
+    g.add_option('-u', '--manifest-url',
+                 dest='manifest_url',
+                 help='manifest repository location', metavar='URL')
+    g.add_option('-b', '--manifest-branch',
+                 dest='manifest_branch',
+                 help='manifest branch or revision', metavar='REVISION')
+    cbr_opts = ['--current-branch']
+    # The gitc-init subcommand allocates -c itself, but a lot of init users
+    # want -c, so try to satisfy both as best we can.
+    if not gitc_init:
+      cbr_opts += ['-c']
+    g.add_option(*cbr_opts,
+                 dest='current_branch_only', action='store_true',
+                 help='fetch only current manifest branch from server')
+    g.add_option('-m', '--manifest-name',
+                 dest='manifest_name', default='default.xml',
+                 help='initial manifest file', metavar='NAME.xml')
+    g.add_option('--mirror',
+                 dest='mirror', action='store_true',
+                 help='create a replica of the remote repositories '
+                      'rather than a client working directory')
+    g.add_option('--reference',
+                 dest='reference',
+                 help='location of mirror directory', metavar='DIR')
+    g.add_option('--dissociate',
+                 dest='dissociate', action='store_true',
+                 help='dissociate from reference mirrors after clone')
+    g.add_option('--depth', type='int', default=None,
+                 dest='depth',
+                 help='create a shallow clone with given depth; see git clone')
+    g.add_option('--partial-clone', action='store_true',
+                 dest='partial_clone',
+                 help='perform partial clone (https://git-scm.com/'
+                 'docs/gitrepository-layout#_code_partialclone_code)')
+    g.add_option('--clone-filter', action='store', default='blob:none',
+                 dest='clone_filter',
+                 help='filter for use with --partial-clone [default: %default]')
+    g.add_option('--archive',
+                 dest='archive', action='store_true',
+                 help='checkout an archive instead of a git repository for '
+                      'each project. See git archive.')
+    g.add_option('--submodules',
+                 dest='submodules', action='store_true',
+                 help='sync any submodules associated with the manifest repo')
+    g.add_option('-g', '--groups',
+                 dest='groups', default='default',
+                 help='restrict manifest projects to ones with specified '
+                      'group(s) [default|all|G1,G2,G3|G4,-G5,-G6]',
+                 metavar='GROUP')
+    g.add_option('-p', '--platform',
+                 dest='platform', default='auto',
+                 help='restrict manifest projects to ones with a specified '
+                      'platform group [auto|all|none|linux|darwin|...]',
+                 metavar='PLATFORM')
+    g.add_option('--no-clone-bundle',
+                 dest='no_clone_bundle', action='store_true',
+                 help='disable use of /clone.bundle on HTTP/HTTPS')
+    g.add_option('--no-tags',
+                 dest='no_tags', action='store_true',
+                 help="don't fetch tags in the manifest")
+
+    # Tool
+    g = p.add_option_group('repo Version options')
+    g.add_option('--repo-url',
+                 dest='repo_url',
+                 help='repo repository location', metavar='URL')
+    g.add_option('--repo-branch',
+                 dest='repo_branch',
+                 help='repo branch or revision', metavar='REVISION')
+    g.add_option('--no-repo-verify',
+                 dest='no_repo_verify', action='store_true',
+                 help='do not verify repo source code')
+
+    # Other
+    g = p.add_option_group('Other options')
+    g.add_option('--config-name',
+                 dest='config_name', action="store_true", default=False,
+                 help='Always prompt for name/e-mail')
+>>>>>>> BRANCH (d92076 Revert "Save cookies back to jar when fetching clone.bundle")
 
   def _RegisteredEnvironmentOptions(self):
     return {'REPO_MANIFEST_URL': 'manifest_url',
