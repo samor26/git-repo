@@ -18,6 +18,8 @@ that you can put anywhere in your path.
 * Running Repo in [Microsoft Windows](./docs/windows.md)
 * GitHub mirror: <https://github.com/GerritCodeReview/git-repo>
 * Postsubmit tests: <https://github.com/GerritCodeReview/git-repo/actions>
+*
+
 
 ## Contact
 
